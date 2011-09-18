@@ -1,0 +1,2 @@
+class FakeAdapter
+end
