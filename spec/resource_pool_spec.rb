@@ -28,6 +28,10 @@ module Arc
         
     describe '#resource' do
     
+      it "throws NotImplemented when running create_resource, which should be overridden" do
+        p = ResourcePool.new nil
+        ->{ p.create_resource }.should raise_error(NotImplementedError)
+      end
       it 'creates a new object for each running thread' do
         pool = StringPool.new :pool => 5, :timeout => 5
         threads = thread_resources pool, 4
