@@ -7,10 +7,7 @@ class FakeCollector
     [:hello, :world]
   end
   def fetch_item key
-    @items ||= Hash.new do |hash, k|
-      hash[k] = "hello from key -> #{key.to_s}"
-    end
-    @items[key]
+   "hello from key -> #{key.to_s}"
   end
 end
 
@@ -40,7 +37,7 @@ describe Collector do
       @collector.should_receive :fetch_keys
       @collector.keys
     end
-    it 'caches the respond from :fetch_keys' do
+    it 'caches the responce from :fetch_keys' do
       keys = @collector.keys
       keys.should be @collector.keys
     end
@@ -52,8 +49,11 @@ describe Collector do
       @collector[:key]
     end
     it 'caches the respond from #fetch_item' do
-      item = @collector[:key]
-      item.should be(@collector[:key])      
+      @collector[:key].should be(@collector[:key])
+    end
+    it 'fetches items that have not been cached' do
+      @collector[:key].should == "hello from key -> key"
+      @collector[:second_key].should == 'hello from key -> second_key'
     end
   end
   
@@ -64,6 +64,6 @@ describe Collector do
         item.should_not be_nil
       end
     end    
-  end  
+  end
   
 end

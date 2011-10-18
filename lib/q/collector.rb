@@ -2,7 +2,7 @@ module Collector
   include Enumerable
 
   def [] key
-    collected_items[:key] ||= fetch_item key
+    collected_items[key] ||= fetch_item key
   end
   def keys
     @keys ||= fetch_keys
